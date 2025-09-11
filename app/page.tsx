@@ -1,8 +1,23 @@
+import AddTodoForm from "@/components/AddTodoForm";
+import TodoItem from "@/components/TodoItem";
+import prisma from "@/lib/prisma";
 
-export default function Home() {
+async function getTodos() {
+  const todos = await prisma.todo.findMany();
+  return todos;
+}
+export default async function Home() {
+  const todos = await getTodos();
   return (
-   <div>
-    hii there 
-   </div>
+    <main className="flex min-h-screen flex-col items-center p-24">
+      <h1 className="text-4xl font-bold mb-8">Todo App</h1>
+      <AddTodoForm />
+
+      <ul>
+        {todos.map((todo) => (
+          <TodoItem key={todo.id} todo={todo} />
+        ))}
+      </ul>
+    </main>
   );
 }
