@@ -1,43 +1,6 @@
-Project Title
-A minimal starter template for Next.js, Prisma, and PostgreSQL with Docker.
+todo app built in next js using server action 
 
-Tech Stack
-Next.js
+docker container name todo-postgres 
 
-Prisma
-
-PostgreSQL (Docker)
-
-tsx
-
-Getting Started
-Prerequisites
-Node.js (v18.x or later)
-
-Docker Desktop
-
-1. Create Next.js Project
-npx create-next-app@latest your-project-name
-cd your-project-name
-
-2. Install Dependencies
-npm install prisma tsx --save-dev
-npm install @prisma/client @prisma/extension-accelerate
-
-3. Start PostgreSQL Container
-docker run --name template -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
-
-4. Initialize Prisma & Configure .env
-npx prisma init --datasource-provider postgresql
-
-Add the following line to the .env file created at the root of your project:
-
-DATABASE_URL="postgresql://postgres:mysecretpassword@localhost:5432/postgres"
-
-5. Run Database Migration
-npx prisma migrate dev --name init
-
-6. Start Development Server
-npm run dev
-
-Open http://localhost:3000 to view your application.
+how i add next auth ?? 
+1. npm i next-auth @auth/prisma-adapter
