@@ -1,19 +1,27 @@
 "use server";
 
+import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
 // add todo
-export async function addTodo(formData: FormData) {
+export async function addTodo(  formData: FormData) {
+  console.log("i added a todo ")
+  const session = await auth()
   const title = formData.get("title") as string;
   if (!title.trim()) return;
 
+   if (!session?.user?.id) {
+    console.error("No authenticated user found");
+    return;
+  }
   // create new todo
   try {
     await prisma.todo.create({
       data: {
         title: title,
         completed: false,
+        userId : session.user.id
       },
     });
     revalidatePath("/");

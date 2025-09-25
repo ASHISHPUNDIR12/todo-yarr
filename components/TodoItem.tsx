@@ -1,7 +1,6 @@
 "use client";
 
 import { deleteTodo, titleUpdate, toggleUpdate } from "@/app/actions";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type Todo = {
@@ -15,32 +14,8 @@ type TodoItemProps = {
 const TodoItem = ({ todo }: TodoItemProps) => {
   const [newTitle, setNewTitle] = useState(todo.title);
   const [isEditing, setIsEditing] = useState(false);
-  const router = useRouter();
-
-  // updating todo title
-  // const handleUpdate = async () => {
-  //   if (!newTitle.trim()) return;
-  //   try {
-  //     const res = await fetch(`/api/todos/${todo.id}`, {
-  //       method: "PUT",
-  //       headers: {
-  //         "content-type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         title: newTitle,
-  //       }),
-  //     });
-  //     if (!res.ok) {
-  //       throw new Error("error updating title");
-  //     }
-  //     router.refresh();
-  //     setIsEditing(false);
-  //   } catch (error) {
-  //     console.error("error updating title", error);
-  //   }
-  // };
   return (
-    <div>
+    <div className="hover:bg-gray-100 w-80 mt-4 rounded">
       <li className="flex items-center justify-between p-2 border-b">
         <input
           type="checkbox"
@@ -48,7 +23,7 @@ const TodoItem = ({ todo }: TodoItemProps) => {
           onChange={() => {
             toggleUpdate(todo.id, !todo.completed);
           }}
-          className="h-5 w-5"
+          className="h-5 w-5 me-3"
         />{" "}
         {isEditing ? (
           // EDITING VIEW
@@ -59,7 +34,7 @@ const TodoItem = ({ todo }: TodoItemProps) => {
             className="flex-1 p-1 border rounded"
           />
         ) : (
-          // DEFAULT VIEW
+          
           <span
             className={`flex-1 ${
               todo.completed ? "line-through text-gray-500" : ""
@@ -80,6 +55,7 @@ const TodoItem = ({ todo }: TodoItemProps) => {
             </button>
           ) : (
             <button
+              className="mr-3"
               onClick={() => {
                 setIsEditing(true);
               }}
